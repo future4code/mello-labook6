@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { AddressInfo } from "net";
 import dotenv from "dotenv";
-import { signUp } from "./endpoints/signup";
+import { signUp } from "./endpoints/Signup";
 
 dotenv.config();
 
