@@ -2,6 +2,9 @@ import { BaseDatabase } from "./BaseDatabase";
 
 
 export class UserDatabase extends BaseDatabase {
+  feed(id: string) {
+      throw new Error("Method not implemented.");
+  }
 
   private static TABLE_NAME: string = "User";
 
