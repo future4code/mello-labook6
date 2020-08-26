@@ -1,13 +1,14 @@
 import express, { Request, Response } from "express";
 import { AddressInfo } from "net";
 import dotenv from "dotenv";
+import { signUp } from "./endpoints/signup";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-
+app.post("/signup", signUp);
 
 
 app.get("/teste", async (req: Request, res: Response) => {
