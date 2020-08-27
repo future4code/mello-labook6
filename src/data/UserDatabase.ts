@@ -28,8 +28,8 @@ export class UserDatabase extends BaseDatabase {
     try {
       const result = await super.getConnection().raw(`
               SELECT Post.id, text, create_at, id_user, type, name FROM Post
-              JOIN Users ON Users.id = Post.id_user
-              JOIN Followers ON Followers.idUser = Users.id
+              JOIN User ON Users.id = Post.id_user
+              JOIN Followers ON Followers.idUser = User.id
               WHERE Followers.idFollower = "${id}"
               ORDER BY Post.create_at DESC;
       `);
