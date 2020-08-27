@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 import { AddressInfo } from "net";
 import dotenv from "dotenv";
-import { feed } from "./endpoints/Feed";
-import { signIn } from "./endpoints/SignIn";
+import { login } from "./endpoints/login";
+import { feed } from "./endpoints/feed";
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ app.get("/teste", async (req: Request, res: Response) => {
 });
 
 app.get("/user/feed", feed);
-app.post("/user/signin", signIn)
+app.post("/user/signin", login)
 
 const server = app.listen(3000, () => {
     if (server) {
