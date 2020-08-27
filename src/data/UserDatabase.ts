@@ -1,4 +1,5 @@
 import { BaseDatabase } from "./BaseDatabase";
+import { FeedDTO } from "../model/feedDTO";
 
 
 export class UserDatabase extends BaseDatabase {
@@ -23,7 +24,7 @@ export class UserDatabase extends BaseDatabase {
     }
   }
 
-  public async feed (id: string): Promise<any> {
+  public async feed (id: string): Promise<FeedDTO> {
     try {
       const result = await super.getConnection().raw(`
               SELECT Post.id, text, create_at, id_user, type, name FROM Post
@@ -32,7 +33,17 @@ export class UserDatabase extends BaseDatabase {
               WHERE Followers.idFollower = "${id}"
               ORDER BY Post.create_at DESC;
       `);
-      return result;
+      const isResult: FeedDTO = result[0].map((item:any) => {
+          return {
+            postId: item.id,
+            text: item.text,
+            create_at: item.create_at,
+            id_user: item.id_user,
+            type: item.type,
+            name: item.name
+          }
+      })
+      return isResult;
     } catch (error) {
       throw new Error (error.message)
     } finally {

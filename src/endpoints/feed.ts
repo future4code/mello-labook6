@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { Authenticator } from '../services/Authenticator';
 import { UserDatabase } from '../data/UserDatabase';
+import { FeedDTO } from '../model/feedDTO';
 
 export async function feed (req: Request, res: Response) {
     try {
@@ -8,10 +9,10 @@ export async function feed (req: Request, res: Response) {
         const user = new UserDatabase();
         const token = req.headers.authorization as string;
         const data = authenticator.getData(token);
-        const result = await user.feed(data.id);
+        const result: FeedDTO = await user.feed(data.id);
         
         res.status(200).send({
-            result: result[0]
+            result: result
         });
     } catch (error) {
         res.status(401).send({

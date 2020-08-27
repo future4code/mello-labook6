@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { UserDatabase } from '../data/UserDatabase';
 import { Authenticator } from '../services/Authenticator';
 import { HashManager } from '../services/HashManager';
+import { loginDTO } from '../model/loginDTO';
 
 export async function login (req: Request, res: Response) {
     try {
@@ -22,11 +23,9 @@ export async function login (req: Request, res: Response) {
             throw new Error ("Invalid Email or Password");
         }
 
-        const token = authenticator.generateToken({id: result[0][0].id});
+        const token: loginDTO = {token: authenticator.generateToken({id: result[0][0].id})};
 
-        res.status(200).send({
-            token
-        });
+        res.status(200).send(token);
     } catch (error) {
         res.status(400).send({
             message: error.message
