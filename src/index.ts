@@ -3,6 +3,7 @@ import { AddressInfo } from "net";
 import dotenv from "dotenv";
 import { signUp } from "./endpoints/signup";
 import { feed } from "./endpoints/feed";
+import { login } from "./endpoints/login";
 
 
 dotenv.config();
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.post("/signup", signUp);
 app.get("/user/feed", feed);
+app.post("/user/signin", login)
 
 
 app.get("/teste", async (req: Request, res: Response) => {
