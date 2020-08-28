@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { signUp } from "./endpoints/signup";
 import { feed } from "./endpoints/feed";
 import { login } from "./endpoints/login";
+import { kindFeed } from "./endpoints/kindFeed";
 
 
 dotenv.config();
@@ -13,7 +14,8 @@ app.use(express.json());
 
 app.post("/signup", signUp);
 app.get("/user/feed", feed);
-app.post("/user/signin", login)
+app.post("/user/signin", login);
+app.get("/feed", kindFeed);
 
 
 app.get("/teste", async (req: Request, res: Response) => {
