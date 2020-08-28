@@ -5,6 +5,7 @@ import { signUp } from "./endpoints/signup";
 import { feed } from "./endpoints/feed";
 import { login } from "./endpoints/login";
 import { kindFeed } from "./endpoints/kindFeed";
+import { commentPost } from "./endpoints/commentPost";
 
 
 dotenv.config();
@@ -16,6 +17,7 @@ app.post("/signup", signUp);
 app.get("/user/feed", feed);
 app.post("/user/signin", login);
 app.get("/feed", kindFeed);
+app.post("/user/feed/:id", commentPost);
 
 
 app.get("/teste", async (req: Request, res: Response) => {

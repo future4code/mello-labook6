@@ -1,5 +1,6 @@
 import { BaseDatabase } from "./BaseDatabase";
 import { FeedDTO } from "../model/feedDTO";
+import { CommentPostInput } from "../model/commentPostInputDTO";
 
 
 export class UserDatabase extends BaseDatabase {
@@ -28,8 +29,8 @@ export class UserDatabase extends BaseDatabase {
     try {
       const result = await super.getConnection().raw(`
               SELECT Post.id, text, create_at, id_user, type, name FROM Post
-              JOIN User ON User.id = Post.id_user
-              JOIN Followers ON Followers.idUser = User.id
+              JOIN ${UserDatabase.TABLE_NAME} ON ${UserDatabase.TABLE_NAME}.id = Post.id_user
+              JOIN Followers ON Followers.idUser = ${UserDatabase.TABLE_NAME}.id
               WHERE Followers.idFollower = "${id}"
               ORDER BY Post.create_at DESC;
       `);
@@ -51,4 +52,23 @@ export class UserDatabase extends BaseDatabase {
     }
   }
 
+  public async commentPost (data: CommentPostInput): Promise<void> {
+    try {
+      const result = await super.getConnection().raw(`
+        SELECT id FROM Post WHERE id = ${data.id_post}
+      `);
+      
+      if (result[0][0] === undefined){
+        throw new Error ("Invalid Post");
+      }
+
+      await super.getConnection().raw(`
+        INSERT INTO Comment VALUES ("${data.id}","${data.text}","${data.create_at.format("YYYY-MM-DD")}","${data.id_user}","${data.id_post}")
+      `);
+    } catch (error) {
+      throw new Error (error.message);
+    } finally {
+      super.destroyConnection();
+    }
+  }
 }
