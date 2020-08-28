@@ -6,7 +6,7 @@ import { feed } from "./endpoints/feed";
 import { login } from "./endpoints/login";
 import { kindFeed } from "./endpoints/kindFeed";
 import { commentPost } from "./endpoints/commentPost";
-
+import { createPost } from "./endpoints/createPost";
 
 dotenv.config();
 
@@ -18,27 +18,21 @@ app.get("/user/feed", feed);
 app.post("/user/signin", login);
 app.get("/feed", kindFeed);
 app.post("/user/feed/:id", commentPost);
-
+app.post("/createPost", createPost);
 
 app.get("/teste", async (req: Request, res: Response) => {
-
-    try {
-        res.status(200).send("Oi, seu server está funcionando!");
-    } catch (error) {
-
-        res.status(400).send("ERRO");
-
-    }
+  try {
+    res.status(200).send("Oi, seu server está funcionando!");
+  } catch (error) {
+    res.status(400).send("ERRO");
+  }
 });
 
-
-
-
 const server = app.listen(3000, () => {
-    if (server) {
-        const address = server.address() as AddressInfo;
-        console.log(`Server is running in http://localhost: ${address.port}`);
-    } else {
-        console.error(`Failure upon starting server.`);
-    }
+  if (server) {
+    const address = server.address() as AddressInfo;
+    console.log(`Server is running in http://localhost: ${address.port}`);
+  } else {
+    console.error(`Failure upon starting server.`);
+  }
 });
