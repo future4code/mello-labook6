@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { signUp } from "./endpoints/signup";
 import { feed } from "./endpoints/feed";
 import { login } from "./endpoints/login";
+import { kindFeed } from "./endpoints/kindFeed";
 import { commentPost } from "./endpoints/commentPost";
 
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.post("/signup", signUp);
 app.get("/user/feed", feed);
 app.post("/user/signin", login);
+app.get("/feed", kindFeed);
 app.post("/user/feed/:id", commentPost);
 
 
