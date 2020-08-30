@@ -18,7 +18,7 @@ app.get("/user/feed", feed);
 app.post("/user/signin", login);
 app.get("/feed", kindFeed);
 app.post("/user/feed/:id", commentPost);
-app.post("/createPost", createPost);
+app.post("/post", createPost);
 
 app.get("/teste", async (req: Request, res: Response) => {
   try {

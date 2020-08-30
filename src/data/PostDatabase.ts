@@ -1,24 +1,24 @@
 import { BaseDatabase } from "./BaseDatabase";
+import { createPostInputDTO } from "../model/postDTO";
 
 export class PostDatabase extends BaseDatabase {
-  private static TABLE_NAME = "Post";
+  private static TABLE_NAME = "Labook_Posts";
 
-  public async createPost(
-    post_id: string,
-    user_id: string,
-    title: string,
-    description: string,
-    createdAt: number,
-    photo: string,
-    type: "enum"
-  ): Promise<void> {
+  public async createPost(input: createPostInputDTO): Promise<void> {
+    const {
+      postId: post_id,
+      userId: user_id,
+      description,
+      createdAt: created_at,
+      photo,
+      type,
+    } = input;
     await this.getConnection()
       .insert({
         post_id,
         user_id,
-        title,
         description,
-        createdAt,
+        created_at,
         photo,
         type,
       })
